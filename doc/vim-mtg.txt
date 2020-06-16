@@ -1,0 +1,382 @@
+*vim-mtg.txt*  The VIM 'Magic: The Gathering' deck builder
+
+===============================================================================
+CONTENTS                                                              *vim-mtg*
+
+    1. Introduction .................................... |vim-mtg-intro|
+    1. Requirements .................................... |vim-mtg-requirements|
+    1. Quick start ..................................... |vim-mtg-quickstart|
+    1. Usage ........................................... |vim-mtg-usage|
+    1. Mappings ........................................ |vim-mtg-mappings|
+    1. Options and default values ...................... |vim-mtg-options|
+    1. Commands ........................................ |vim-mtg-commands|
+    1. Appendix ........................................ |vim-mtg-appendix|
+    1. Licence ......................................... |vim-mtg-licence|
+
+
+===============================================================================
+1. Introduction                                                 *vim-mtg-intro*
+
+viMTG is a plugin for building a Magic: The Gather decks.
+
+===============================================================================
+2. Requirements                                          *vim-mtg-requirements*
+
+- Python 3.x interface
+- mtgcard [https://github.com/yoshi1123/mtgcard]
+- fzf vim plugin (for <localleader>a) [https://github.com/junegunn/fzf]
+
+===============================================================================
+3. Quick start                                             *vim-mtg-quickstart*
+
+Example:
+
+    1. Type in cards lines in the format '4 Ancient Den', or <localleader>a
+    2. `:MTGSearch type:artifact`
+    3. Use 'a' to add the current card in search buffer to the deck
+    4. Type <localleader>p to process the deck
+
+Search examples (see |:MTGSearch| for a list of search keywords):
+
+`:MTGSearch colors>=rgw type:sorcery`
+    search for sorceries that are at least colors red, green, and white
+
+`:MTGSearch format:standard colors=r type:creature text:damage`
+    search for red creature cards with the word "damage" in their text
+
+===============================================================================
+4. Usage                                                        *vim-mtg-usage*
+
+There are three different kind of buffers:
+
+1. Deck buffers
+2. Search buffers
+3. Preview window
+
+Deck buffers contains the deck content, Search buffers contains the card search
+results, and Preview window contain a preview of a card.
+
+Use `:MTGDeck` to process the deck in the buffer.  Use <enter> on a line to
+preview the card. Cards are entered in the following portable formats, used in
+Card Kingdom and other software:
+
+
+    Format 1                  Format 2             
+    4 Ancient Den             4 x Ancient Den      
+    2 Arcbound Ravager        2 x Arcbound Ravager 
+    4 Welding Jar             4x Welding Jar       
+    4 Ornithopter             4x Ornithopter       
+    etc...                    etc...               
+
+There are three sections, Main, Sideboard, and Other. Example:
+
+    Main
+    4 Ancient Den
+    2 Arcbound Ravager
+    Sideboard
+    4 Welding Jar
+    Other
+    4 Ornithopter
+
+viMTG will format and process the deck. Any text prior to the Main line is
+not processed. Also, any text after the '----' (stat separator) line is not
+processed.
+
+===============================================================================
+5. Mappings                                                *vim-mtg-mappings*
+
+To exclude variable mappings from being set add `let g:mtg_no_maps = 1` to your
+vimrc. Single letter mappings (in Search buffer and Card Preview Window,
+specifically 'a', 's', 'o', and 't') do not have variables for mapping
+customization.
+
+-------------------------------------------------------------------------------
+5.1 Deck Buffer
+
+Default mapping         Description~
+---------------         -----------
+                                            *g:mtg_process_command*
+<localleader>p          Process deck buffer. Add stats (mana curve,
+                        legalities), and update sections and totals. The end
+                        of the stats section contains an exportable list of
+                        cards by default.
+
+                                            *g:mtg_add_command*
+<localleader>a          Add a card to current section (Main, Sideboard, or
+                        Other), using fuzzy finder. NOTE: requires the fzf vim
+                        plugin.
+
+                                            *g:mtg_preview_command*
+<enter>                 Preview card.
+
+                                            *g:mtg_vpreview_command*
+<enter>                 Preview card with the selected name.
+
+                                            *g:mtg_prev_command*
+<up>                    Preview next card up.
+
+                                            *g:mtg_next_command*
+<down>                  Preview next card down.
+
+                                            *g:mtg_move_card_to_main_command*
+gm                      Move [count] card at current line to Main.
+
+                                            *g:mtg_move_card_to_sb_command*
+gs                      Move [count] card at current line to Sideboard.
+
+                                            *g:mtg_move_card_to_other_command*
+go                      Move [count] card at current line to Other.
+
+                                            *g:mtg_move_cards_to_main_command*
+{visual}gm              Move selected cards to Main.
+
+                                            *g:mtg_move_cards_to_sb_command*
+{visual}gs              Move selected cards to Sideboard.
+
+                                            *g:mtg_move_cards_to_other_command*
+{visual}go              Move selected cards to Other.
+
+                                            *g:mtg_search_input_command*
+<localleader>s          Get input and |:MTGSearch|.
+
+                                            *g:mtg_search_input_rev_command*
+<localleader>r          Get input and reverse |:MTGSearch|.
+
+                                            *g:mtg_set_order_command*
+<localleader>o          Set sort key.
+
+                                            *g:mtg_set_format_command*
+<localleader>f          Set default format.
+
+
+-------------------------------------------------------------------------------
+5.2 Search Buffer
+
+Default mapping         Description~
+---------------         -----------
+                                                *mtg_a*
+a                       Add [count] of current card to Main.
+
+                                                *mtg_s*
+s                       Add [count] of current card to Sideboard.
+
+                                                *mtg_o*
+o                       Add [count] of current card to Other.
+
+                                               *g:mtg_card_left_command*
+<c-l>                   Move cursor to card to the left.
+
+                                               *g:mtg_card_right_command*
+<c-h>                   Move cursor to card to the right
+
+                                               *g:mtg_card_up_command*
+<c-k>                   Move cursor to card above.
+
+                                               *g:mtg_card_down_command*
+<c-j>                   Move cursor to card below.
+
+                                               |g:mtg_search_input_command|
+<localleader>s          Get input and |:MTGSearch|.
+
+                                               |g:mtg_search_input_rev_command|
+<localleader>r          Get input and reverse |:MTGSearch|.
+
+                                               |g:mtg_set_order_command|
+<localleader>o          Set sort key and order, and update results.
+
+                                               |g:mtg_set_format_command|
+<localleader>f          Set default format.
+
+-------------------------------------------------------------------------------
+5.3 Card Preview Window
+
+Default mapping         Description~
+---------------         -----------
+                                                *mtg_t*
+t                       Toggle between regular view and verbose view. Regular
+                        view just shows the card and verbose view shows the
+                        card with information.
+
+===============================================================================
+6. Options and default values                                 *vim-mtg-options*
+
+                                                *g:mtg_no_maps*
+`let g:mtg_no_maps = 0`
+    If true, viMTG will not automatically create mappings.
+
+                                                *g:mtg_default_format*
+`let g:mtg_default_format = ""`
+    Format to use for |:Search| and |g:mtg_add_command| mapping (default
+    <localleader>a). This has the same effect as adding 'format:vintage' to
+    search queries. Can by set with |:MTGFormat| or |g:mtg_set_format_command|
+    mapping (default '<localleader>f'). Set to "" to not use a default.
+
+    Acceptable values:
+        "standard"
+        "pioneer"
+        "modern"
+        "commander"
+        "brawl"
+        "pauper"
+        "legacy"
+        "vintage"
+        ""
+
+                                                *g:mtg_ansi*
+`let g:mtg_ansi = 1`
+    Enable ansi color.
+
+                                                *g:mtg_order*
+`let g:mtg_order = 'cmc'`
+    Sort key for search. Can be set with |:MTGOrder| or |g:mtg_set_order_command|
+    mapping (default '<localleader>o').
+
+    Acceptable values:
+        "cmc"
+        "name"
+        "price"
+
+                                                *g:mtg_main_sectioned*
+`let g:mtg_main_sectioned = 1`
+    Whether Main section is sectioned into card types (sorceries, creatures,
+    etc.), instead of the portable format. The other format not selected will
+    be printed at the end of the file.
+
+                                                *g:mtg_process_other*
+`let g:mtg_process_other = 0`
+    Whether to process 'Other' section. If 0, then the lines from 'Other' to
+    '----' (stats separator line) will not be touched.
+
+                                                *g:mtg_multiple_search_buffers*
+`let g:mtg_multiple_search_buffers = 0`
+    Whether to use a new buffer and open a new window for each search.
+
+                                                *g:mtg_preview_show_price*
+`let g:mtg_preview_show_price = 1`
+    Whether to show price in preview window status line.
+
+                                                *g:mtg_preview_verbose*
+`let g:mtg_preview_verbose = 0`
+    Whether to show information about a card in the preview, such as printings
+    and legalities.
+
+===============================================================================
+7. Commands                                                  *vim-mtg-commands*
+
+                                                        *:MTGDeck*
+:MTGDeck                Find and process the deck buffer.
+                        - format the deck, with sections, mana cost, and totals
+                        - add mana curve graph
+                        - add legal formats for deck
+                        - either (1) the deck in exportable format or (2) the
+                          deck in sectioned format
+
+                        Buffers: Deck
+
+                                                        *:MTGSearch*
+:MTGSearch[!] {query}   Search for cards.
+
+                        Buffers: deck, search, preview
+
+                        [!] reverses the order.
+
+                        {query} syntax:
+                            {condition} [[or] {condition} ...]
+
+                        A space separating {condition} symbols implies "AND".
+                        An "AND" has higher presedence than "OR".
+                        For example,
+>
+                        mana=g cmc=1 or mana=r cmc=2
+<
+                        means (1) '1 green mana AND 1 converted mana cost' OR
+                        (2) '1 red mana AND 1 converted mana cost'.
+
+                        {condition} syntax:
+                            {keyword}{op}{value}
+
+                        {keyword} list:
+                            c[olors]
+                            cmc
+                            f[ormat], legal
+                            layout
+                            loyalty
+                            mana
+                            name
+                            power
+                            price
+                            rarity
+                            set
+                            t[ype]
+                            text
+                            toughness
+                            year
+
+                        {op} list:
+                            :, =, !=, <, >, <=, >=
+
+                        Example:
+>
+                        :MTGSearch format:vintage type:artifact \
+                                    or f:commander
+<
+                        The above searches for either (1) artifacts legal in
+                        vintage or (2) any card legal in commander. See the
+                        python package, mtgcard, for more details.
+
+                                                        *:MTGOrder*
+:MTGOrder                Prompt for sort order.
+
+                        Buffers: deck, search
+
+                                                        *:MTGFormat*
+:MTGFormat              Prompt for default format, |g:mtg_default_format|.
+
+                        Buffers: deck, search
+
+===============================================================================
+8. Appendix                                                  *vim-mtg-appendix*
+
+8.1 Mapping commands with default values            *vim-mtg-appendix-mappings*
+
+8.1.1 Deck buffers
+>
+
+  let g:mtg_add_command = '<localleader>a'
+  let g:mtg_preview_command = '<enter>'
+  let g:mtg_vpreview_command = '<enter>'
+  let g:mtg_prev_command = '<up>'
+  let g:mtg_next_command = '<down>'
+  let g:mtg_move_card_to_main_command = 'gm'
+  let g:mtg_move_card_to_sb_command = 'gs'
+  let g:mtg_move_card_to_other_command = 'go'
+  let g:mtg_move_cards_to_main_command = 'gm'
+  let g:mtg_move_cards_to_sb_command = 'gs'
+  let g:mtg_move_cards_to_other_command = 'go'
+  let g:mtg_search_input_command = '<localleader>s'
+  let g:mtg_search_input_rev_command = '<localleader>r'
+  let g:mtg_set_order_command = '<localleader>o'
+  let g:mtg_set_format_command = '<localleader>f'
+
+<
+8.1.2 Search buffers
+>
+
+  let g:mtg_card_left_command = '<c-l>'
+  let g:mtg_card_right_command = '<c-h>'
+  let g:mtg_card_up_command = '<c-k>'
+  let g:mtg_card_down_command = '<c-j>'
+
+  let g:mtg_search_input_command = '<localleader>s'
+  let g:mtg_search_input_rev_command = '<localleader>r'
+  let g:mtg_set_order_command = '<localleader>o'
+  let g:mtg_set_format_command = '<localleader>f'
+
+<
+===============================================================================
+9. Licence                                                    *vim-mtg-licence*
+
+This software is licensed under the GPL v3 license.
+© 2020  yoshi1@tutanota.com
+
+vim:ft=help
