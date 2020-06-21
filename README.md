@@ -9,20 +9,23 @@ The VIM 'Magic: The Gathering' deck builder.
 ## Features
 
 - Preview cards completely inside Vim `<Enter>`
-- display your deck's stats `<leader>p` (manacost, mana curve, legalities, and
-  more)
-- Format deck into sections `<leader>p`
+- display your deck's stats `<localleader>p` (manacost, mana curve,
+  legalities, and more)
+- Format deck into sections `<localleader>p`
 - Easily move cards to different sections `gm`, `gs`, `go` (Main, Sideboard,
   Other)
-- Search for cards `<leader>s`
+- Search for cards `<localleader>s`
 - Add searched cards to deck `a`, `s`, `o` (Main, Sideboard, Other)
-- Select sort order for search `<leader>o`
-- Limit Search to a format `<leader>f`
+- Select sort order for search `<localleader>o`
+- Limit Search to a format `<localleader>f`
 - Import decks by copying and pasting universal MTG deck export format
 
 ## Installation
 
-Use your plugin manager of choice.
+<!-- TODO: add new windows commands -->
+
+Use your plugin manager of choice. On Windows, replace the directory `~/.vim`
+with `~/vimfiles`.
 
 - Vim Packages
   - `git clone --recursive https://github.com/yoshi1123/vim-mtg ~/.vim/pack/bundle/start/vim-mtg`
@@ -51,7 +54,7 @@ NOTE: its to be included as a submodule; so its included?
 
 From `vim-mtg/`:
 
-    git submodule update --recursive
+    git submodule update --recursive --remote
 
 
 ## Quick start
