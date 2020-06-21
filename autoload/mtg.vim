@@ -341,10 +341,10 @@ function! mtg#set_order() abort
     echo "current: ".g:mtg_order
     if match(buffer_name(''), '-mtg_search') > 0 && exists('b:mtg_prev_query')
         " in search buffer
-        let l:keys = ['c', 'n', 'p', 'C', 'N', 'P']
-        let l:options = ['cmc (asc)', 'name (asc)', 'price (asc)',
-                    \ 'cmc (desc)', 'name (desc)', 'price (desc)']
-        let l:result = mtg#util#prompt('sort order', l:keys, l:options, 3)
+        let l:keys = ['c', 'n', 'p', 's', 'C', 'N', 'P', 'S']
+        let l:options = ['cmc (asc)', 'name (asc)', 'price (asc)', 'setcode (asc)',
+                    \ 'cmc (desc)', 'name (desc)', 'price (desc)', 'setcode (desc)']
+        let l:result = mtg#util#prompt('sort order', l:keys, l:options, 4)
         let l:new_value = matchstr(l:result, '^[^ ]\+')
         let l:order = matchstr(l:result, '(\zs[^)]\+\ze')
         let l:reverse = l:order ==# 'asc' ? 0 : 1
@@ -354,7 +354,7 @@ function! mtg#set_order() abort
         call mtg#card_search(b:mtg_prev_query, l:reverse)
     else
         let l:keys = ['c', 'n', 'p']
-        let l:options = ['cmc', 'name', 'price']
+        let l:options = ['cmc', 'name', 'price', 'setcode']
         let l:new_value = mtg#util#prompt('order', l:keys, l:options)
         if l:new_value != 'invalid'
             let g:mtg_order = l:new_value
