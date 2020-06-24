@@ -1,6 +1,6 @@
-# viMTG
+![viMTG](./doc/vimtg_logo.png)
 
-The VIM 'Magic: The Gathering' deck builder.
+viMTG -- the VIM 'Magic: The Gathering' deck builder.
 
 ## Image
 
