@@ -141,7 +141,7 @@ endfunction
 
 function! mtg#card_preview(name, ...) abort
     let l:setcode = get(a:000, 0, -1)
-python3 << endPythong
+python3 << endPython
 verbose_print = vim_interface.settings.get('preview_verbose', 'bool')
 ansi = vim_interface.settings.get('ansi', 'bool')
 name = vim.eval("a:name")
@@ -154,7 +154,7 @@ except ValueError as e:
     vim_interface.vim_warning(str(e))
 except FileNotFoundError as e:
     vim_interface.vim_error("MTG database not found: run ':MTGUpdate'")
-endPythong
+endPython
 endfunction
 
 
