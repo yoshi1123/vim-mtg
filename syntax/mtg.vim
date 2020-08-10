@@ -15,7 +15,7 @@
 " along with viMTG.  If not, see <https://www.gnu.org/licenses/>.
 
 " Vim syntax file
-" Maintainer:       yoshi111@tutanota.com
+" Maintainer:       yoshi1@tutanota.com
 
 
 " quit when a syntax file was already loaded

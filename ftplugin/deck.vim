@@ -15,7 +15,7 @@
 " along with viMTG.  If not, see <https://www.gnu.org/licenses/>.
 
 " Vim filetype plugin file
-" Maintainer:       yoshi111@tutanota.com
+" Maintainer:       yoshi1@tutanota.com
 
 
 if exists("b:did_ftplugin") && b:did_ftplugin
