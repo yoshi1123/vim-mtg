@@ -61,12 +61,12 @@ From `vim-mtg/`:
 
 Example:
 
-1. Type in cards lines in the format '4 Ancient Den', or <localleader>a
+1. Type in cards lines in the format '4 Ancient Den', or &lt;localleader&gt;a
 2. `:MTGSearch type:artifact`
 3. Use 'a' to add the current card in search buffer to the deck, 's' to
    add to sideboard, and 'o' to add to other, with an optional COUNT
    (e.g., `4a` adds four of the currently selected card)
-4. Type <localleader>p to process the deck
+4. Type &lt;localleader&gt;p to process the deck
 
 Deck import formats:
 
