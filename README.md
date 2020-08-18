@@ -9,7 +9,7 @@ viMTG -- the VIM 'Magic: The Gathering' deck builder.
 ## Features
 
 - Preview cards completely inside Vim `<Enter>`
-- display your deck's stats `<localleader>p` (manacost, mana curve,
+- Display your deck's stats `<localleader>p` (manacost, mana curve,
   legalities, and more)
 - Format deck into sections `<localleader>p`
 - Easily move cards to different sections `gm`, `gs`, `go` (Main, Sideboard,
