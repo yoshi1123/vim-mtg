@@ -280,7 +280,7 @@ def std_deck(deck, add_setcode=False, mana=False, ansi=True):
     append = []
     if mana:
         # column widths
-        lname = max([len(c['card'].name) for c in deck])
+        lname = max([len(c['card'].name) for c in deck]) if deck else 0
         lmana = 15
         for c in deck:
             if 'Land' in c['card'].types:
