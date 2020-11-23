@@ -2,6 +2,10 @@
 
 viMTG -- the VIM 'Magic: The Gathering' deck builder.
 
+## Bugs
+
+**NOTE: If you find a bug, please file an issue.**
+
 ## Image
 
 ![vim-mtg](./doc/vim-mtg.png)
@@ -28,10 +32,17 @@ Use your plugin manager of choice. On Windows, replace the directory `~/.vim`
 with `~/vimfiles`.
 
 - Vim Packages
-  - `git clone --recursive https://github.com/yoshi1123/vim-mtg ~/.vim/pack/bundle/start/vim-mtg`
-  - Run `:helptags ~/.vim/pack/bundle/start/vim-mtg/doc`
+    - Linux/Unix/OSX:
+        - `git clone --recursive https://github.com/yoshi1123/vim-mtg ~/.vim/pack/bundle/start/vim-mtg`
+      - Run `:helptags ~/.vim/pack/bundle/start/vim-mtg/doc`
+    - Windows:
+        - `git clone --recursive https://github.com/yoshi1123/vim-mtg ~/vimfiles/pack/bundle/start/vim-mtg`
+      - Run `:helptags ~/vimfiles/pack/bundle/start/vim-mtg/doc`
 - [Pathogen](https://github.com/tpope/vim-pathogen)
-  - `git clone --reursive https://github.com/yoshi1123/vim-mtg ~/.vim/bundle/vim-mtg`
+  - Linux/Unix/OSX:
+      - `git clone --recursive https://github.com/yoshi1123/vim-mtg ~/.vim/bundle/vim-mtg`
+  - Windows:
+      - `git clone --recursive https://github.com/yoshi1123/vim-mtg ~/.vim/bundle/vim-mtg`
 - [Vundle](https://github.com/gmarik/vundle)
   - Add `Bundle 'https://github.com/yoshi1123/vim-mtg'` to .vimrc
   - Run `:BundleInstall`
