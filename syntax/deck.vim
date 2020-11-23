@@ -25,12 +25,12 @@ endif
 
 
 " mana
-hi mtgW cterm=bold ctermfg=230
-hi mtgU cterm=bold ctermfg=153
-hi mtgB cterm=bold ctermfg=247
-hi mtgR cterm=bold ctermfg=216
-hi mtgG cterm=bold ctermfg=115
-hi mtgC cterm=bold ctermfg=253
+hi mtgW cterm=bold ctermfg=230 guifg=#FFFFD7
+hi mtgU cterm=bold ctermfg=153 guifg=#AFD7FF
+hi mtgB cterm=bold ctermfg=247 guifg=#9E9E9E
+hi mtgR cterm=bold ctermfg=216 guifg=#FFAF87
+hi mtgG cterm=bold ctermfg=115 guifg=#87D7AF
+hi mtgC cterm=bold ctermfg=253 guifg=#DADADA
 syn region mtgW matchgroup=Conceal start='\zs\e\[1;38;5;230m' end='\ze\e\[0m' concealends
 syn region mtgU matchgroup=Conceal start='\zs\e\[1;38;5;153m' end='\ze\e\[0m' concealends
 syn region mtgB matchgroup=Conceal start='\zs\e\[1;38;5;247m' end='\ze\e\[0m' concealends
@@ -40,11 +40,11 @@ syn region mtgC matchgroup=Conceal start='\zs\e\[1;38;5;253m' end='\ze\e\[0m' co
 syn match Conceal '\e\[0m' conceal
 
 " mana curve
-hi mtgManaGraph ctermbg=Cyan
+hi mtgManaGraph ctermbg=Cyan guibg=Cyan
 syn match mtgManaGraph ': [0-9][0-9 ] |\zs \+$'
 
 " card type sections
-hi mtgTypeSection ctermfg=DarkGray
+hi mtgTypeSection ctermfg=DarkGray guifg=DarkGray
 for t in ['Creatures', 'Planeswalkers', 'Instants', 'Sorceries', 'Enchantments', 'Artifacts', 'Lands']
 let r_section = printf('^%s \d\+$', t)
     exe 'syn match mtgTypeSection /'.r_section.'/'
@@ -53,7 +53,7 @@ endfor
 " card type sections
 hi link mtgDeckSection Title
 hi link mtgDeckSectionCount Title
-" hi mtgDeckSectionCount ctermfg=Gray
+" hi mtgDeckSectionCount ctermfg=Gray guifg=Gray
 let DECK_MAIN = 'Main'
 let DECK_SB = 'Sideboard'
 let DECK_OTHER = 'Other'
@@ -65,7 +65,7 @@ exe 'syn match mtgDeckSection /'.r_section.'/'
 exe 'syn match mtgDeckSectionCount /'.r_section_count.'/'
 
 " highlight in curly brackets
-hi mtgCardName ctermfg=magenta
+hi mtgCardName ctermfg=Magenta guifg=Magenta
 syn region mtgCardName matchgroup=Normal start='{\ze.*}' end='}' concealends
 
 let b:current_syntax = "deck"
